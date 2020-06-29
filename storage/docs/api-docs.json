@@ -1,0 +1,756 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Week-13-Assignment",
+        "version": "1.0.0"
+    },
+    "basePath": "/api",
+    "paths": {
+        "/category": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Display Category lists",
+                "description": "Display Category lists",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authorization: Bearer Access_Token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Filter by category name",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Category was retrieved successfully.",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "description": "Display a listing of the resource.",
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "description": "Display a listing of the resource.",
+                                    "properties": {
+                                        "name": {
+                                            "description": "Display a listing of the resource.",
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Category"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "message": {
+                                    "description": "Display a listing of the resource.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "Missing require field or validation"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Create a new category",
+                "description": "Create a new category",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authorization: Bearer Access_Token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "name",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Category was stored successfully.",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "description": "Store a newly created resource in storage.",
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "description": "Store a newly created resource in storage.",
+                                    "properties": {
+                                        "name": {
+                                            "description": "Store a newly created resource in storage.",
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Category"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "message": {
+                                    "description": "Store a newly created resource in storage.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "Missing require field or validation"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/category/{id}": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Show category",
+                "description": "Show category",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authorization: Bearer Access_Token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Category was shown successfully.",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "description": "Display the specified resource.",
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "description": "Display the specified resource.",
+                                    "properties": {
+                                        "name": {
+                                            "description": "Display the specified resource.",
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Category"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "message": {
+                                    "description": "Display the specified resource.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Update category",
+                "description": "Update category",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authorization: Bearer Access_Token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "name",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Category was updated successfully.",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "description": "Update the specified resource in storage.",
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "description": "Update the specified resource in storage.",
+                                    "properties": {
+                                        "name": {
+                                            "description": "Update the specified resource in storage.",
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Category"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "message": {
+                                    "description": "Update the specified resource in storage.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "Missing require field or validation"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Delete category",
+                "description": "Delete category",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authorization: Bearer Access_Token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Category was deleted successfully.",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "description": "Remove the specified resource from storage.",
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "description": "Remove the specified resource from storage.",
+                                    "properties": {
+                                        "name": {
+                                            "description": "Remove the specified resource from storage.",
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Category"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "message": {
+                                    "description": "Remove the specified resource from storage.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/post": {
+            "get": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Display Post lists",
+                "description": "Display Post lists",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authorization: Bearer Access_Token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Filter by post name",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Post was retrieved successfully.",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "description": "Display a listing of the resource.",
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "description": "Display a listing of the resource.",
+                                    "properties": {
+                                        "name": {
+                                            "description": "Display a listing of the resource.",
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Category"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "message": {
+                                    "description": "Display a listing of the resource.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "Missing require field or validation"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Store Post",
+                "description": "Display Post lists",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authorization: Bearer Access_Token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "Post name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "category_id",
+                        "in": "formData",
+                        "description": "Post category",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "creator_id",
+                        "in": "formData",
+                        "description": "Creator Post",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Post was stored successfully.",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "description": "Store a newly created resource in storage.",
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "description": "Store a newly created resource in storage.",
+                                    "properties": {
+                                        "name": {
+                                            "description": "Store a newly created resource in storage.",
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Post"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "message": {
+                                    "description": "Store a newly created resource in storage.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "Missing require field or validation"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/post/{id}": {
+            "get": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Show Post",
+                "description": "Display a Post",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authorization: Bearer Access_Token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Post was stored successfully.",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "description": "Display the specified resource.",
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "description": "Display the specified resource.",
+                                    "properties": {
+                                        "name": {
+                                            "description": "Display the specified resource.",
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Post"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "message": {
+                                    "description": "Display the specified resource.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "Missing require field or validation"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Update Post",
+                "description": "Update Post",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authorization: Bearer Access_Token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "Post name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "category_id",
+                        "in": "formData",
+                        "description": "Post category",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "creator_id",
+                        "in": "formData",
+                        "description": "Creator Post",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Post was updated successfully.",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "description": "Update the specified resource in storage.",
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "description": "Update the specified resource in storage.",
+                                    "properties": {
+                                        "name": {
+                                            "description": "Update the specified resource in storage.",
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Post"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "message": {
+                                    "description": "Update the specified resource in storage.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "Missing require field or validation"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Delete Post",
+                "description": "Delete Post",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authorization: Bearer Access_Token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Post was deleted successfully.",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "description": "Remove the specified resource from storage.",
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "description": "Remove the specified resource from storage.",
+                                    "properties": {
+                                        "name": {
+                                            "description": "Remove the specified resource from storage.",
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/Post"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "message": {
+                                    "description": "Remove the specified resource from storage.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "Missing require field or validation"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Category": {
+            "required": [
+                "label",
+                "name"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "name": {
+                    "description": "name",
+                    "type": "string",
+                    "format": "int64"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "Post": {
+            "required": [
+                "lable",
+                [
+                    "name",
+                    "category_id",
+                    "creator_id"
+                ]
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "name": {
+                    "description": "name",
+                    "type": "string",
+                    "format": "int64"
+                },
+                "category_id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "creator_id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        }
+    }
+}
