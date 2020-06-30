@@ -175,7 +175,14 @@ class PostController extends Controller implements ShouldQueue
        $post = Post::findOrFail($id);
          if($post->is_approved)
          {
-           $post->update(['is_approved' => 0]);
+          $post->update(['is_approved' => 0]);
+
+           $detail = [
+            'title' => 'Post is approved',
+            'body' => 'Your post now is opened to public'
+            ];
+
+          Mail::to($post->user->email)->queue(new \App\Mail\IsApproveMail($detail));
            return response()->json([
                'success' => true,
                'message' => 'diapprove successfully'
@@ -185,10 +192,17 @@ class PostController extends Controller implements ShouldQueue
          else {
            $post->update(['is_approved' => 1]);
 
+           $detail = [
+            'title' => 'Post is disapproved',
+            'body' => 'Your post now is invalided to view in public'
+            ];
+
+          Mail::to($post->user->email)->queue(new \App\Mail\IsApproveMail($detail));
           return response()->json([
               'success' => true,
               'message' => 'Approve successfully'
           ]);
+
          }
 
     }

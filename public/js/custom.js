@@ -29,8 +29,14 @@ $(document).ready(function () {
     });
   $(".ajax-approve").click(function (){
     const self = $(this);
+    if(self.data('approve')){
+      var check = "approve";
+    }
+    else {
+      var check = "disapprove";
+    }
 
-    if (confirm("Do you want to approve?")) {
+    if (confirm("Do you want to " + check + " this post ?")) {
     $.ajax({
           type: "POST",
           url: self.data("url"),
