@@ -34,11 +34,11 @@
 
                                    @if($post->is_approved)
                                    <div id="{{ $post->id }}" style="display: inline-block;">
-                                    <button type="submit" class="btn btn-outline-danger ajax-approve" data-url="{{ route('posts.ajax_approve', $post) }}" data-id="post-{{ $post->id }}" data-approve="{{ $post->id }}">Disapprove</button>
+                                    <button type="submit" class="btn btn-outline-success ajax-approve" data-change= "{{  $post->id }}" data-url="{{ route('posts.ajax_approve', $post) }}" data-id="post-{{ $post->id }}" data-approve="{{ $post->is_approved }}">Disapprove</button>
                                   </div>
                                    @else
                                     <div id="{{ $post->id }}"  style="display: inline-block;">
-                                     <button type="submit" class="btn btn-outline-success ajax-approve" data-url="{{ route('posts.ajax_approve', $post) }}" data-id="post-{{ $post->id }}" data-approve="{{ $post->id }}">Approve</button>
+                                     <button type="submit" class="btn btn-outline-danger ajax-approve" data-change= "{{  $post->id }}" data-url="{{ route('posts.ajax_approve', $post) }}" data-id="post-{{ $post->id }}" data-approve="{{  $post->is_approved }}">Approve</button>
                                    </div>
                                    @endif
 

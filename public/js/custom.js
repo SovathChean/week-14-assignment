@@ -29,14 +29,21 @@ $(document).ready(function () {
     });
   $(".ajax-approve").click(function (){
     const self = $(this);
+
     if (confirm("Do you want to approve?")) {
     $.ajax({
           type: "POST",
           url: self.data("url"),
           success: function(response){
             if(response.success){
-                // $('#' + self.data('id')).html('<button type="submit" class="btn btn-outline-danger ajax-approve" data-url="{{ url("posts.ajax_approve/") }}" data-id="post-{{ $post->id }}">Disapprove</button>');
-                $('#' + self.data('approve')).html('');
+                if(self.data('approve'))
+                {
+                 $('#' + self.data('change')).html('<button type="submit" class="btn btn-outline-danger ajax-approve" data-change= "{{  $post->id }}" data-url="{{ url("posts.ajax_approve/") }}" data-id="post-{{ $post->id }} data-approve="0" > Approve</button>');
+                }
+                else{
+
+                $('#' + self.data('change')).html(`<button type="submit" class="btn btn-outline-success ajax-approve" data-change= "{{  $post->id }}" data-url="{{ url("posts.ajax_approve/") }}" data-id="post-{{ $post->id }}  data-approve="1" > Disapprove</button>`);
+                }
             }
             else {
               if(confirm(response.message + '\nDo you want to refresh the page?'))
