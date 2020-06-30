@@ -53,7 +53,7 @@ class Post extends Model
     *)
     *
     */
-      protected $fillable = ['name', 'category_id', 'creator_id'];
+      protected $fillable = ['title', 'category_id', 'creator_id', 'body', 'is_approved'];
 
       public function category()
       {

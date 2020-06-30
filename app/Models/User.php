@@ -48,4 +48,8 @@ class User extends Authenticatable
       return $this->role === 'editor';
     }
 
+    public function isUser(){
+      return $this->role === 'user';
+    }
+
 }

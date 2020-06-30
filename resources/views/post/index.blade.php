@@ -27,10 +27,20 @@
                              @foreach($posts as $post)
                              <tr id="post-{{ $post->id }}">
                                  <td>{{$post->id}}</td>
-                                 <td>{{$post->name}}</td>
+                                 <td>{{$post->title}}</td>
                                  <td>{{$post->user->name}}</td>
 
                                  <td>
+
+                                   @if($post->is_approved)
+                                   <div id="{{ $post->id }}" style="display: inline-block;">
+                                    <button type="submit" class="btn btn-outline-danger ajax-approve" data-url="{{ route('posts.ajax_approve', $post) }}" data-id="post-{{ $post->id }}" data-approve="{{ $post->id }}">Disapprove</button>
+                                  </div>
+                                   @else
+                                    <div id="{{ $post->id }}"  style="display: inline-block;">
+                                     <button type="submit" class="btn btn-outline-success ajax-approve" data-url="{{ route('posts.ajax_approve', $post) }}" data-id="post-{{ $post->id }}" data-approve="{{ $post->id }}">Approve</button>
+                                   </div>
+                                   @endif
 
                                    @can('updatePost', $post)
                                    {!! Form::open(['method'=>'GET', 'action'=>['PostController@edit', $post->id], 'style'=>'display: inline-block']) !!}
@@ -38,11 +48,14 @@
                                    {!! Form::close() !!}
                                    @endcan
 
+
+
                                    @can('deletePost', $post)
                                    {!! Form::open(['method'=>'DELETE', 'action'=>['PostController@destroy', $post->id], 'style'=>'display: inline-block']) !!}
                                    {!! Form::submit('delete', ['class'=>'btn btn-outline-danger']) !!}
                                    {!! Form::close() !!}
                                    @endcan
+
                                    @can('ajaxDeletePost', $post)
                                       <button type="submit" class="btn btn-outline-danger ajax-delete" data-url="{{ route('posts.ajax_delete', $post) }}" data-id="post-{{ $post->id }}">Ajax Delete</button>
                                    @endcan

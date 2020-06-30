@@ -20,7 +20,7 @@ class PostPolicy
     public function editPost(User $user, Post $post)
     {
         //
-        return $user->id === $post->creator_id || $user->role === 'admin';
+        return $user->id === $post->creator_id || $user->isAdmin();
     }
 
     /**
@@ -33,7 +33,7 @@ class PostPolicy
     public function updatePost(User $user, Post $post)
     {
         //
-        return $user->id === $post->creator_id || $user->role === 'admin';
+        return $user->id === $post->creator_id || $user->isAdmin();
     }
 
     /**
@@ -46,7 +46,7 @@ class PostPolicy
     public function deletePost(User $user, Post $post)
     {
         //
-        return $user->id === $post->creator_id || $user->role === 'admin';
+        return $user->id === $post->creator_id || $user->isAdmin();
     }
 
 
@@ -60,6 +60,6 @@ class PostPolicy
      */
     public function ajaxDeletePost(User $user, Post $post)
     {
-        return $user->id === $post->creator_id || $user->role === 'admin';
+        return $user->id === $post->creator_id || $user->isAdmin();
     }
 }

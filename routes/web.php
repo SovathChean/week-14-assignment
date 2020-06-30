@@ -30,6 +30,7 @@ Route::group([
 ], function(){
    Route::resource('/post', 'PostController');
    Route::delete('posts/{post}/ajax-delete', 'PostController@ajaxDestroy')->name('posts.ajax_delete');
+   Route::post('posts/{post}/ajax-approve', 'PostController@ajaxApprove')->name('posts.ajax_approve');
 
    Route::resource('/category', 'CategoryController');
    Route::delete('category/{category}/ajax-delete', 'CategoryController@ajaxDestroy')->name('categories.ajax_delete');

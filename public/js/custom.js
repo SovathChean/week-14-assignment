@@ -27,4 +27,28 @@ $(document).ready(function () {
             });
         }
     });
+  $(".ajax-approve").click(function (){
+    const self = $(this);
+    if (confirm("Do you want to approve?")) {
+    $.ajax({
+          type: "POST",
+          url: self.data("url"),
+          success: function(response){
+            if(response.success){
+                // $('#' + self.data('id')).html('<button type="submit" class="btn btn-outline-danger ajax-approve" data-url="{{ url("posts.ajax_approve/") }}" data-id="post-{{ $post->id }}">Disapprove</button>');
+                $('#' + self.data('approve')).html('');
+            }
+            else {
+              if(confirm(response.message + '\nDo you want to refresh the page?'))
+                window.location.reload();
+            }
+          },
+  				error: function (response) {
+  					if (confirm(response.responseJSON.message + '\nDo you want to refresh the page?'))
+  						window.location.reload();
+  				}
+       });
+     }
+    })
+
 });

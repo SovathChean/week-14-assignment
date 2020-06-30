@@ -20,7 +20,7 @@ class CategoryPolicy
      */
     public function createCategory(User $user)
     {
-      return $user->role === 'admin';
+      return $user->isAdmin();
     }
 
     /**
@@ -33,7 +33,7 @@ class CategoryPolicy
     public function editCategory(User $user, Category $category)
     {
         //
-          return $user->role === 'admin';
+          return $user->isAdmin();
     }
     /**
      * Determine whether the user can update the model.
@@ -45,7 +45,7 @@ class CategoryPolicy
     public function updateCategory(User $user, Category $category)
     {
         //
-          return $user->role === 'admin';
+          return $user->isAdmin();
     }
 
     /**
@@ -58,7 +58,7 @@ class CategoryPolicy
     public function deleteCategory(User $user, Category $category)
     {
         //
-          return $user->role === 'admin';
+          return $user->isAdmin();
     }
 
 
@@ -72,6 +72,6 @@ class CategoryPolicy
     public function ajaxDeleteCategory(User $user, Category $category)
     {
         //
-        return $user->role === 'admin';
+        return $user->isAdmin();
     }
 }

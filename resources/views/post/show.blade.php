@@ -6,9 +6,8 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-header">Post</div>
-
                 <div class="card-body">
-                  {{$post->name}}
+                   {{$post->title}}
                 </div>
             </div>
         </div>

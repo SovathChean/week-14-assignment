@@ -32,7 +32,7 @@
 
                                         <option value="admin">Admin</option>
                                         <option value="editor">Editor</option>
-
+                                        <option value="editor">User</option>
                                 </select>
 
                                 @error('role_id')

@@ -9,8 +9,10 @@ use Faker\Generator as Faker;
 $factory->define(Post::class, function (Faker $faker) {
     return [
         //
-        'name' => $faker->word,
+        'title' => $faker->word,
+        'body' => $faker->text,
+        'is_approved' => true,
         'category_id' => factory(Category::class),
-        'creator_id' => $faker->numberBetween(1, 10)
+        'creator_id' => 1
     ];
 });

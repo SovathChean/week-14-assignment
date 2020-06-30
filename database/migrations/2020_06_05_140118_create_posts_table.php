@@ -18,7 +18,9 @@ class CreatePostsTable extends Migration
             $table->foreignId('category_id')
                   ->constrained('categories')
                   ->cascadeOnDelete();
-            $table->string('name');
+            $table->string('title');
+            $table->text('body');
+            $table->boolean('is_approved');
             $table->foreignId('creator_id')
                   ->constrained('users')
                   ->cascadeOnDelete();

@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\User;
+use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\PostRequest;
-use App\Http\Requests\PostUpdateRequest;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Category;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Mail;
 
-class PostController extends Controller
+class PostController extends Controller implements ShouldQueue
 {
     /**
      * Display a listing of the resource.
@@ -53,13 +55,21 @@ class PostController extends Controller
         //
         $input = $request->all();
         $input['creator_id'] = Auth::id();
-        $posts = Post::create($input);
+        $input['is_approved'] = false;
+        $post = Post::create($input);
 
-        $post = Post::findOrFail($posts->id)->id;
+        $detail = [
+         'title' => 'A new post was created',
+         'body' => 'New post is waiting you to approve in order to see in public'
+         ];
 
+         $users = User::where('role', 'admin')->get();
 
+         foreach($users as $user){
+            Mail::to($user->email)->queue(new \App\Mail\PostCreationMail($detail));
+         }
 
-        return redirect()->route('post.show', [$post]);
+         return redirect()->route('post.show', [$post->id]);
 
     }
 
@@ -158,8 +168,28 @@ class PostController extends Controller
               'message' => 'Unauthorize access'
           ]);
         }
+    }
 
+    public function ajaxApprove($id){
 
+       $post = Post::findOrFail($id);
+         if($post->is_approved)
+         {
+           $post->update(['is_approved' => 0]);
+           return response()->json([
+               'success' => true,
+               'message' => 'diapprove successfully'
+           ]);
+
+         }
+         else {
+           $post->update(['is_approved' => 1]);
+
+          return response()->json([
+              'success' => true,
+              'message' => 'Approve successfully'
+          ]);
+         }
 
     }
 }
