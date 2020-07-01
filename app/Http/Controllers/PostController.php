@@ -19,14 +19,15 @@ class PostController extends Controller implements ShouldQueue
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         //
         $num = config('setting.pagination_category_num');
         $posts = Post::paginate($num);
+        $user = Auth::user();
 
-
-        return view('post.index', ['posts'=> $posts]);
+        return view('post.index', ['posts'=> $posts ,'user'=> $user]);
 
     }
 
@@ -38,6 +39,7 @@ class PostController extends Controller implements ShouldQueue
     public function create()
     {
         //
+
         $categories = DB::table('categories')->pluck('name', 'id')->all();
 
         return view('post.create', ['categories'=>$categories]);
@@ -82,8 +84,9 @@ class PostController extends Controller implements ShouldQueue
     public function show($id)
     {
         //
-        $post = Post::findOrFail($id);
 
+        $post = Post::findOrFail($id);
+      //  dd($post);
         return view('post.show', ['post'=>$post]);
 
     }
@@ -202,7 +205,6 @@ class PostController extends Controller implements ShouldQueue
               'success' => true,
               'message' => 'Approve successfully'
           ]);
-
          }
 
     }

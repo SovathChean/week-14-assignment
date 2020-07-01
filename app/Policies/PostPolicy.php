@@ -10,6 +10,11 @@ class PostPolicy
 {
     use HandlesAuthorization;
 
+    public function createPost(User $user)
+    {
+        //
+        return $user->isEditor() || $user->isAdmin();
+    }
     /**
      * Determine whether the user can update the model.
      *
@@ -62,4 +67,10 @@ class PostPolicy
     {
         return $user->id === $post->creator_id || $user->isAdmin();
     }
+
+    public function ajaxApprove(User $user, Post $post)
+    {
+        return $user->isAdmin();
+    }
+
 }

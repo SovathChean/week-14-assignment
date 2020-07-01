@@ -30,10 +30,10 @@ $(document).ready(function () {
   $(".ajax-approve").click(function (){
     const self = $(this);
     if(self.data('approve')){
-      var check = "approve";
+      var check = "disapprove";
     }
     else {
-      var check = "disapprove";
+      var check = "approve";
     }
 
     if (confirm("Do you want to " + check + " this post ?")) {
@@ -44,11 +44,11 @@ $(document).ready(function () {
             if(response.success){
                 if(self.data('approve'))
                 {
-                 $('#' + self.data('change')).html('<button type="submit" class="btn btn-outline-danger ajax-approve" data-change= "{{  $post->id }}" data-url="{{ url("posts.ajax_approve/") }}" data-id="post-{{ $post->id }} data-approve="0" > Approve</button>');
+                 $('#' + self.data('change')).html('<button type="submit" class="btn btn-outline-danger ajax-approve" data-change= "{{  $post->id }}" data-url="{{ url("posts.ajax_approve/") }}" data-id="post-{{ $post->id }} data-approve="0" > Waiting</button>');
                 }
                 else{
 
-                $('#' + self.data('change')).html(`<button type="submit" class="btn btn-outline-success ajax-approve" data-change= "{{  $post->id }}" data-url="{{ url("posts.ajax_approve/") }}" data-id="post-{{ $post->id }}  data-approve="1" > Disapprove</button>`);
+                $('#' + self.data('change')).html(`<button type="submit" class="btn btn-outline-success ajax-approve" data-change= "{{  $post->id }}" data-url="{{ url("posts.ajax_approve/") }}" data-id="post-{{ $post->id }}  data-approve="1" > Approve</button>`);
                 }
             }
             else {

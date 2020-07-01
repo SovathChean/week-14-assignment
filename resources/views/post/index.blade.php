@@ -7,9 +7,11 @@
             <div class="card">
                 <div class="card-header">
                   Post
+                  @can('createPost', App\Models\Post::class)
                   <div  style="float: right">
-                    <a href="{{route('post.create')}}" class="btn btn-primary" > Add Post </a>
+                    <a href="{{ route('post.create') }}" class="btn btn-primary" > Add Post </a>
                   </div>
+                @endcan
                 </div>
 
                 <div class="card-body">
@@ -24,51 +26,20 @@
                             </tr>
                           </thead>
                           <tbody>
-                             @foreach($posts as $post)
-                             <tr id="post-{{ $post->id }}">
-                                 <td>{{$post->id}}</td>
-                                 <td>{{$post->title}}</td>
-                                 <td>{{$post->user->name}}</td>
+                         @foreach($posts as $post)
+                          @if(!is_null($user))
+                              @if($user->isAdmin())
+                                @include('post.includes.post_list')
+                              @elseif($post->is_approved)
+                                @include('post.includes.post_list')
+                              @endif
+                         @else
+                           @if($post->is_approved)
+                            @include('post.includes.post_list')
+                            @endif
+                         @endif
 
-                                 <td>
-
-                                   @if($post->is_approved)
-                                   <div id="{{ $post->id }}" style="display: inline-block;">
-                                    <button type="submit" class="btn btn-outline-success ajax-approve" data-change= "{{  $post->id }}" data-url="{{ route('posts.ajax_approve', $post) }}" data-id="post-{{ $post->id }}" data-approve="{{ $post->is_approved }}">Disapprove</button>
-                                  </div>
-                                   @else
-                                    <div id="{{ $post->id }}"  style="display: inline-block;">
-                                     <button type="submit" class="btn btn-outline-danger ajax-approve" data-change= "{{  $post->id }}" data-url="{{ route('posts.ajax_approve', $post) }}" data-id="post-{{ $post->id }}" data-approve="{{  $post->is_approved }}">Approve</button>
-                                   </div>
-                                   @endif
-
-                                   @can('updatePost', $post)
-                                   {!! Form::open(['method'=>'GET', 'action'=>['PostController@edit', $post->id], 'style'=>'display: inline-block']) !!}
-                                   {!! Form::submit('update', ['class'=>'btn btn-outline-info']) !!}
-                                   {!! Form::close() !!}
-                                   @endcan
-
-
-
-                                   @can('deletePost', $post)
-                                   {!! Form::open(['method'=>'DELETE', 'action'=>['PostController@destroy', $post->id], 'style'=>'display: inline-block']) !!}
-                                   {!! Form::submit('delete', ['class'=>'btn btn-outline-danger']) !!}
-                                   {!! Form::close() !!}
-                                   @endcan
-
-                                   @can('ajaxDeletePost', $post)
-                                      <button type="submit" class="btn btn-outline-danger ajax-delete" data-url="{{ route('posts.ajax_delete', $post) }}" data-id="post-{{ $post->id }}">Ajax Delete</button>
-                                   @endcan
-
-                                   {!! Form::open(['method'=>'GET', 'action'=>['PostController@show', $post->id], 'style'=>'display: inline-block']) !!}
-                                   {!! Form::submit('Show', ['class'=>'btn btn-outline-primary']) !!}
-                                   {!! Form::close() !!}
-
-
-                                 </td>
-
-                             </tr>
-                              @endforeach
+                       @endforeach
                           </tbody>
                       </table>
                       <div class="pagination justify-content-center">

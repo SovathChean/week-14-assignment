@@ -22,16 +22,26 @@ Route::group([
   Auth::routes();
 
   Route::get('/home', 'HomeController@index')->name('home');
+
+
 });
+
+  Route::get('post', 'PostController@index')->name('post.index');
 
 
 Route::group([
     'middleware' => ['auth', 'HtmlMinifier'],
 ], function(){
-   Route::resource('/post', 'PostController');
+
+   Route::resource('post', 'PostController')->except(['index', 'show']);
+
    Route::delete('posts/{post}/ajax-delete', 'PostController@ajaxDestroy')->name('posts.ajax_delete');
    Route::post('posts/{post}/ajax-approve', 'PostController@ajaxApprove')->name('posts.ajax_approve');
 
    Route::resource('/category', 'CategoryController');
    Route::delete('category/{category}/ajax-delete', 'CategoryController@ajaxDestroy')->name('categories.ajax_delete');
 });
+
+
+  Route::get('post/{post}', 'PostController@show')->name('post.show');
+  Route::post('comment', 'CommentController@store')->name('comment.store');
